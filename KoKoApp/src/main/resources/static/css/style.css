@@ -1,4 +1,5 @@
-/* background */
+/* BACKGROUND */
+
 html, body {
   height: 100%;
   margin: 0;
@@ -6,27 +7,26 @@ html, body {
 
 body {
   background-image: url("../images/bgMain.png");
-  background-size: cover;        
-  background-position: center;   
-  background-repeat: no-repeat;  
-
-  min-height: 100vh;            
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
 }
 
-/* overlay layer */
+/* overlay */
 body::before {
   content: "";
-  opacity: 100;
+  opacity: 1;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-
   background: linear-gradient(400deg, rgba(13, 47, 2, 0.89), #f4a3618f);
-  
   pointer-events: none;
 }
+
+/* HEADER */
 
 header {
   position: fixed;
@@ -34,91 +34,141 @@ header {
   left: 50%;
   transform: translateX(-50%);
 
-  width: 100%;
-  height: 40px;
+  width: min(95%, 1200px);
+  height: 55px;
 
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: space-between;
 
-  background: linear-gradient(550deg, #2d6a4f, rgba(0, 0, 0, 0), #f4a361e6);
+  padding: 0 15px;
+
+  background: linear-gradient(590deg, #2d6a4f8f, rgba(0, 0, 0, 0), #f4a3618b);
   border-radius: 15px;
-
-    padding: 0 15px;
 
   z-index: 1000;
 }
 
-/* Logo */
-.logo {
-  position: absolute;  
+/* LEFT + RIGHT GROUPS */
 
+.header-left,
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* LOGO (RESPONSIVE CENTER) */
+
+.logo {
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  
 
-  width: 500px;  
+  width: clamp(440px, 30vw, 680px);
   height: auto;
+
+  z-index: 2000;
+
+  pointer-events: none;
+
+  filter: drop-shadow(0 10px 25px rgba(0,0,0,0.35));
 }
 
-/* Left Icons */
-@media (max-width: 768px) {
-  .auth-item {
-    font-size: 14px;
-    padding: 8px 12px;
-    min-width: 70px;
-  }
-}
+/* BUTTONS */
 
-.header-left {
-  position: absolute;
-  left: 0px;
-
-  display: flex;
-  gap: 1px;
-  align-items: center;
-}
-
-.header-left .auth-item {
+.auth-item {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
 
   color: white;
   cursor: pointer;
 
-  font-size: clamp(12px, 1.2vw, 18px);
+  font-size: clamp(12px, 1.2vw, 16px);
 
-  padding: 4px 15px;
+  padding: 6px 10px;
+  border-radius: 20px;
 
-  min-height: 36px;   
-  min-width: 80px;
-
-  border-radius: 500px;
-
-  transition: transform 0.2s ease, color 0.2s ease, background 0.2s ease;}
-
-.auth-icon {
-  
-  font-size: clamp(25px, 1.5vw, 22px);
+  transition: transform 0.2s ease, color 0.2s ease, background 0.2s ease;
 }
 
-.header-left .auth-item:hover {
-  transform: scale(0.90);
-  color: #1b4130;
+/* ICONS */
+.auth-icon {
+  font-size: clamp(16px, 1.6vw, 24px);
+}
+
+/* HOVER */
+.auth-item:hover {
+  transform: scale(0.95);
+  color: #ffffff;
   background: rgba(255, 255, 255, 0.15);
 }
-.header-left .auth-item:active {
-  transform: scale(0.95);
-    color: #1b4130;
+
+.auth-item:active {
+  transform: scale(0.92);
   background: rgba(255, 255, 255, 0.2);
 }
 
-/* Footer */
+/* tooltip */
+.auth-item {
+  position: relative;
+}
+
+.auth-item::after {
+  content: "";
+}
+
+/* show on hover */
+.auth-item:hover::after {
+  opacity: 1;
+}
+
+/* MOBILE BEHAVIOUR */
+@media (max-width: 780px) {
+
+  .auth-item span {
+    display: none;
+  }
+
+  .auth-item::after {
+    content: attr(data-tooltip);
+
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    background: linear-gradient(590deg, #2d6a4f8f, rgba(0, 0, 0, 0), #f4a3618b);
+    color: white;
+
+    padding: 4px 8px;
+    font-size: 18px;
+    border-radius: 50px;
+
+    white-space: nowrap;
+
+    opacity: 0;
+    pointer-events: none;
+
+    transition: opacity 0.1s ease;
+  }
+
+  .logo {
+    width: 400px;
+  }
+
+  header {
+    height: 50px;
+  }
+}
+
+/* FOOTER */
+
 footer {
   position: fixed;
-  bottom: 0px;
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
 
@@ -127,12 +177,8 @@ footer {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
 
-  padding: 1px;
-
-
   text-align: center;
-
-  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.2);
+  padding: 1px;
 
   z-index: 1000;
 }
@@ -141,5 +187,5 @@ footer p {
   margin: 0;
   color: #fff;
   font-size: 13px;
-  font-family:system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
