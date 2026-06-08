@@ -1,5 +1,4 @@
 /* BACKGROUND */
-
 html, body {
   height: 100%;
   margin: 0;
@@ -11,6 +10,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   min-height: 100vh;
+  
 }
 
 /* overlay */
@@ -22,12 +22,11 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(400deg, rgba(13, 47, 2, 0.89), #f4a3618f);
+  background: linear-gradient(600deg, rgba(13, 47, 2, 0.626), #f4a3616f);
   pointer-events: none;
 }
 
 /* HEADER */
-
 header {
   position: fixed;
   top: 15px;
@@ -43,14 +42,36 @@ header {
 
   padding: 0 15px;
 
-  background: linear-gradient(590deg, #2d6a4f8f, rgba(0, 0, 0, 0), #f4a3618b);
-  border-radius: 15px;
+  background: linear-gradient(590deg, #2d6a4fc8, rgba(0, 0, 0, 0), #f4a361b3);
+  border-radius: 200px;
+
+
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+  border: 10px solid linear-gradient(390deg, #2d6a4f8f, rgba(0, 0, 0, 0), #f4a3618b);
+  
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.25);
+  
 
   z-index: 1000;
+  animation: headerFloatIn 0.8s ease-out;
+}
+
+@keyframes headerFloatIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px) scale(0.98);
+    filter: blur(6px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+    filter: blur(0px);
+  }
 }
 
 /* LEFT + RIGHT GROUPS */
-
 .header-left,
 .header-right {
   display: flex;
@@ -59,7 +80,6 @@ header {
 }
 
 /* LOGO (RESPONSIVE CENTER) */
-
 .logo {
   position: absolute;
   top: 50%;
@@ -74,10 +94,31 @@ header {
   pointer-events: none;
 
   filter: drop-shadow(0 10px 25px rgba(0,0,0,0.35));
+  opacity: 0;
+  animation: logoIn 3s ease-out forwards;
 }
 
-/* BUTTONS */
+@keyframes logoIn {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.75);
+    filter: blur(8px);
+  }
 
+  60% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05);
+    filter: blur(0px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    filter: blur(0px);
+  }
+}
+
+/* ICON BUTTONS */
 .auth-item {
   display: flex;
   align-items: center;
@@ -98,28 +139,22 @@ header {
 .auth-icon {
   font-size: clamp(16px, 1.6vw, 24px);
 }
-
-/* HOVER */
 .auth-item:hover {
   transform: scale(0.95);
   color: #ffffff;
   background: rgba(255, 255, 255, 0.15);
 }
-
 .auth-item:active {
   transform: scale(0.92);
   background: rgba(255, 255, 255, 0.2);
 }
-
 /* tooltip */
 .auth-item {
   position: relative;
 }
-
 .auth-item::after {
   content: "";
 }
-
 /* show on hover */
 .auth-item:hover::after {
   opacity: 1;
@@ -164,8 +199,87 @@ header {
   }
 }
 
-/* FOOTER */
 
+/* TOP RATED SECTION */
+.top-rated-section {
+  margin-top: 90px;
+  padding: 2px;
+}
+
+/* header text */
+.top-rated-header {
+  text-align: center;
+  margin-bottom: 1px;
+}
+
+.top-rated-header h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+
+.top-rated-header p {
+  margin: 2px 0 0;
+  font-size: 13px;
+  font-style: normal;
+}
+.top-rated-header h2,
+.top-rated-header p {
+  color: #000000;
+}
+/*  STORIES SCROLL ROW */
+.stories-container {
+  display: flex;
+  gap: 12px;
+
+  overflow-x: auto;
+  padding: 10px;
+
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* hide scrollbar  */
+.stories-container::-webkit-scrollbar {
+  display: none;
+}
+.stories-container {
+  -ms-overflow-style: none;
+  scrollbar-width: none; }
+
+/* STORY CARD */
+.story-card {
+  flex: 0 0 auto;
+
+  width: 160px;
+  height: 120px;
+
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+  font-size: 18px;
+
+  scroll-snap-align: start;
+
+  transition: transform 0.2s ease;
+}
+
+/* hover effect */
+.story-card:hover {
+  transform: scale(1.05);
+}
+
+/* FOOTER */
 footer {
   position: fixed;
   bottom: 0;
@@ -182,7 +296,6 @@ footer {
 
   z-index: 1000;
 }
-
 footer p {
   margin: 0;
   color: #fff;
