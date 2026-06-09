@@ -10,6 +10,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   min-height: 100vh;
+
   
 }
 
@@ -23,6 +24,8 @@ body::before {
   width: 100%;
   height: 100%;
   background: linear-gradient(600deg, rgba(13, 47, 2, 0.626), #f4a3616f);
+
+
   pointer-events: none;
 }
 
@@ -86,7 +89,7 @@ header {
   left: 50%;
   transform: translate(-50%, -50%);
 
-  width: clamp(440px, 30vw, 680px);
+  width: clamp(560px, 30vw, 680px);
   height: auto;
 
   z-index: 2000;
@@ -156,7 +159,7 @@ header {
   content: "";
 }
 /* show on hover */
-.auth-item:hover::after {
+.auth-item:hover::after{
   opacity: 1;
 }
 
@@ -191,7 +194,7 @@ header {
   }
 
   .logo {
-    width: 400px;
+    width: 560px;
   }
 
   header {
@@ -210,6 +213,7 @@ header {
 .top-rated-header {
   text-align: center;
   margin-bottom: 1px;
+
 }
 
 .top-rated-header h2 {
@@ -222,13 +226,13 @@ header {
 
 
 .top-rated-header p {
-  margin: 2px 0 0;
+  margin: 0px 0 0;
   font-size: 13px;
-  font-style: normal;
+  font-style: italic;
 }
 .top-rated-header h2,
 .top-rated-header p {
-  color: #000000;
+  color: #ffffff;
 }
 /*  STORIES SCROLL ROW */
 .stories-container {
@@ -270,16 +274,346 @@ header {
   font-size: 18px;
 
   scroll-snap-align: start;
+  
 
   transition: transform 0.2s ease;
 }
+
+
 
 /* hover effect */
 .story-card:hover {
   transform: scale(1.05);
 }
 
+
+
+/* TITLE (WHITE CARD BACKGROUND) */
+.top-rated-header h2,
+.map-header h2 {
+  
+
+  
+  backdrop-filter: blur(0px);
+
+  padding: 1px 1px;
+  border-radius: 50px;
+
+  color: rgba(255, 255, 255, 0.819);
+  font-size: 22px;
+  font-weight: 600;
+
+  animation: fadeUp 0.8s ease-out backwards;
+  animation-delay: 0.3s;
+}
+
+.top-rated-header,
+.map-header {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(8px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes fadeScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+    filter: blur(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+.top-rated-header p,
+.map-header p {
+  animation: fadeUp 0.8s ease-out backwards;
+  animation-delay: 0.3s;
+}
+
+/* DESCRIPTION (SMALL WHITE CARD) */
+.top-rated-header p,
+.map-header p {
+  
+
+
+  position: center;
+
+  background: linear-gradient(400deg, rgba(13, 47, 2, 0.626), #f4a3616f);
+  backdrop-filter: blur(3px);
+  border-radius: 50px;
+
+  padding: 1px 100px;
+  
+
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 13px;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+/* MAP SECTION */
+.map-section {
+  margin-top: 1px;
+  padding: 10px 10px;
+}
+
+/* HEADER */
+.map-header {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.map-header h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+
+
+  text-shadow: 0 2px 10px rgba(0,0,0,0.35);
+}
+
+.map-header p {
+  margin: 0px 0 0;
+  font-size: 13px;
+  font-style: italic;
+
+}
+
+
+
+/* MAP CONTAINER */
+.map-container {
+  width: 100%;
+  height: 380px;
+
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.25);
+
+  overflow: hidden;
+
+  transition: transform 0.2s ease;
+}
+
+/* hover effect */
+.map-container:hover {
+  transform: scale(1.01);
+}
+
+.map-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+
+  margin: 10px 0 15px;
+  flex-wrap: wrap;
+}
+
+/* SEARCH BAR */
+.map-search {
+  flex: 1;
+  max-width: 500px;
+
+  padding: 10px 14px;
+
+  border-radius: 50px;
+  border: 1px solid rgba(255,255,255,0.2);
+
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
+
+  color: white;
+  outline: none;
+
+  transition: 0.2s ease;
+}
+
+.map-search::placeholder {
+  color: rgba(255,255,255,0.6);
+}
+
+.map-search:focus {
+  transform: scale(1.02);
+  border-color: rgba(255,255,255,0.4);
+}
+
+/* CATEGORY BUTTON */
+.map-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 14px;
+
+  border-radius: 50px;
+  border: 1px solid rgba(255,255,255,0.2);
+
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
+
+  color: white;
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.map-btn:hover {
+  transform: scale(1.05);
+  background: rgba(255,255,255,0.18);
+}
+
 /* FOOTER */
+
+
+.bottom-actions {
+  position: fixed;
+  bottom: 23px; 
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: min(95%, 900px);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  z-index: 1500;
+
+  pointer-events: none; /* prevents weird overlay blocking */
+}
+
+/* BUTTON STYLE */
+.bottom-btn {
+  pointer-events: auto;
+
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  padding: 10px 16px;
+
+  border-radius: 2000px;
+
+  background: rgba(255, 255, 255, 0.12);
+  
+  background: linear-gradient(200deg, rgba(45,106,79,0.6), rgba(244,162,97,0.4));
+
+  color: white;
+  font-size: clamp(12px, 1.1vw, 15px);
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+/* ICONS */
+.bottom-btn i {
+  font-size: clamp(14px, 1.4vw, 18px);
+}
+
+/* HOVER EFFECT  */
+.bottom-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+/* ACTIVE PRESS */
+.bottom-btn:active {
+  transform: scale(0.98);
+}
+
+/* subtle float in on load */
+@keyframes floatInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* soft breathing glow */
+@keyframes softGlow {
+  0% {
+    box-shadow: 0 0 0 rgba(255,255,255,0);
+  }
+  50% {
+    box-shadow: 0 8px 25px rgba(255,255,255,0.08);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(255,255,255,0);
+  }
+}
+
+/* APPLY ANIMATION */
+.bottom-btn {
+  animation: floatInUp 0.6s ease-in both;
+  animation-delay: 0.5s;
+}
+
+/* stagger each button like ChatGPT UI */
+.bottom-btn.left {
+  animation-delay: 0.2s;
+}
+
+.bottom-btn.center {
+  animation-delay: 0.2s;
+}
+
+.bottom-btn.right {
+  animation-delay: 0.2s;
+}
+
+
+
+@keyframes pulse {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.2;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+}
+
+
+
+
 footer {
   position: fixed;
   bottom: 0;
@@ -288,7 +622,7 @@ footer {
 
   width: 100%;
 
-  background: rgba(255, 255, 255, 0.15);
+  background: linear-gradient(200deg, rgb(45, 106, 79), rgb(244, 163, 97));
   backdrop-filter: blur(10px);
 
   text-align: center;
