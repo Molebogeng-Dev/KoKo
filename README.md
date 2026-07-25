@@ -3,22 +3,35 @@ Koko is a location-based service delivery platform built specifically for rural
 
 
 #  Koko Frontend
-
 A location-based service delivery app for rural South Africa.
 
-## Project Structure
-- index.html       — Login & Register
-- home.html        — Map + Business Listing
-- catalogue.html   — Products per Business
-- checkout.html    — Cart & Payment
-- orders.html      — Order History & Tracking
-- profile.html     — User Profile
-- css/style.css    — Global Styles
-- js/api.js        — All API calls to Spring Boot
-- js/auth.js       — Auth logic
-- js/cart.js       — Cart logic
-- js/map.js        — Leaflet map
-- spring-boot-config/CorsConfig.java — Add to your Spring Boot project
+KoKoApp/
+├── pom.xml                                    (+ thymeleaf-layout-dialect)
+├── src/main/java/co/za/KoKoApp/
+│   ├── KoKoAppApplication.java
+│   └── Rests/controller/controller.java       (routes: /, /home, /login, /register, /user, /business, /runner)
+└── src/main/resources/
+├── application.properties
+├── static/
+│   ├── css/style.css
+│   ├── images/
+│   │   ├── bgMain.png
+│   │   ├── kokoLogo.png
+│   │   ├── koko_banner
+│   │   └── Daveyton-Main-Entrance-B.jpg    ← new, not referenced anywhere yet
+│   └── js/
+│       ├── api.js
+│       ├── auth.js
+│       └── Ui.js
+└── templates/
+├── layout.html                        ← NEW parent (header fragments + shared body)
+├── index.html                         ← decorates layout, overrides nothing (guest header)
+├── user.html                          ← decorates layout, overrides header only
+├── business.html                      ← decorates layout, overrides header only
+├── runner.html                        ← decorates layout, overrides header only
+├── login.html                         ← standalone, NOT decorated
+└── register.html                      ← standalone, NOT decorated
+
 
 ## Running in IntelliJ
 1. Open this folder in IntelliJ IDEA

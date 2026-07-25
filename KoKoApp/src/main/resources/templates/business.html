@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Business Dashboard</title>
+</head>
+<body>
+
+<!-- PLACEHOLDER CONTENT — real icons/links/tooltips TBC, just proving out
+     the inheritance mechanism per the sprint task. Swap freely. -->
+
+<div class="header-left" layout:fragment="header-left">
+
+    <a class="auth-item" data-tooltip="More" th:href="@{/}">
+        <i class="bi bi-three-dots auth-icon"></i>
+        <span>More</span>
+    </a>
+
+    <a class="auth-item" data-tooltip="Dashboard" th:href="@{/}">
+        <i class="bi bi-speedometer2 auth-icon"></i>
+        <span>Dashboard</span>
+    </a>
+
+    <a class="auth-item" data-tooltip="Orders" th:href="@{/}">
+        <i class="bi bi-receipt auth-icon"></i>
+        <span>Orders</span>
+    </a>
+
+</div>
+
+<div class="header-right" layout:fragment="header-right">
+
+    <a class="auth-item" data-tooltip="Add Product" th:href="@{/}">
+        <i class="bi bi-plus-circle auth-icon"></i>
+        <span>Add Product</span>
+    </a>
+
+    <a class="auth-item" data-tooltip="Analytics" th:href="@{/}">
+        <i class="bi bi-bar-chart auth-icon"></i>
+        <span>Analytics</span>
+    </a>
+
+    <a class="auth-item" data-tooltip="Cart" th:href="@{/}">
+        <i class="bi bi-cart3 auth-icon"></i>
+        <span>Cart</span>
+    </a>
+
+    <a class="auth-item" data-tooltip="Logout" th:href="@{/}">
+        <i class="bi bi-box-arrow-right auth-icon"></i>
+        <span>Logout</span>
+    </a>
+
+</div>
+
+</body>
+</html>

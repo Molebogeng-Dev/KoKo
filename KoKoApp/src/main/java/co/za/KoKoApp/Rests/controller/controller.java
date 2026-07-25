@@ -20,4 +20,19 @@ public class controller {
     public String register(){
         return "register";
     }
+
+    @GetMapping("/user")
+    public String userProfile(){
+        return "user";
+    }
+
+    @GetMapping("/business")
+    public String businessProfile(){
+        return "business";
+    }
+
+    @GetMapping("/runner")
+    public String runnerProfile(){
+        return "runner";
+    }
 }

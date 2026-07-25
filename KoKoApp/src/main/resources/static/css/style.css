@@ -241,7 +241,7 @@ header {
   gap: 12px;
 
   overflow-x: auto;
-  padding: 10px;
+  padding: 1px;
 
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
@@ -484,6 +484,40 @@ header {
 }
 
 .map-btn:hover {
+  transform: scale(1.05);
+  background: rgba(255,255,255,0.18);
+}
+
+/* REGION SELECT (top-rated section) — same pill design as .map-btn above,
+   centered with its own vertical spacing since it sits in a different
+   section of the page. */
+.region-select-wrapper {
+  display: flex;
+  justify-content: center;
+
+  margin: 10px 0 18px;
+}
+
+.region-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  padding: 1px 1px;
+
+  border-radius: 50px;
+  border: 1px solid rgba(255,255,255,0.2);
+
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
+
+  color: white;
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.region-btn:hover {
   transform: scale(1.05);
   background: rgba(255,255,255,0.18);
 }
