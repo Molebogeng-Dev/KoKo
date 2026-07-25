@@ -2,9 +2,9 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+      layout:decorate="~{home/layout}">
 <head>
-    <title>My KoKo</title>
+    <title>Business Dashboard</title>
 </head>
 <body>
 
@@ -18,23 +18,28 @@
         <span>More</span>
     </a>
 
-    <a class="auth-item" data-tooltip="My Orders" th:href="@{/}">
-        <i class="bi bi-bag-check auth-icon"></i>
-        <span>My Orders</span>
+    <a class="auth-item" data-tooltip="Dashboard" th:href="@{/}">
+        <i class="bi bi-speedometer2 auth-icon"></i>
+        <span>Dashboard</span>
     </a>
 
-    <a class="auth-item" data-tooltip="Favorites" th:href="@{/}">
-        <i class="bi bi-heart auth-icon"></i>
-        <span>Favorites</span>
+    <a class="auth-item" data-tooltip="Orders" th:href="@{/}">
+        <i class="bi bi-receipt auth-icon"></i>
+        <span>Orders</span>
     </a>
 
 </div>
 
 <div class="header-right" layout:fragment="header-right">
 
-    <a class="auth-item" data-tooltip="Notifications" th:href="@{/}">
-        <i class="bi bi-bell auth-icon"></i>
-        <span>Notifications</span>
+    <a class="auth-item" data-tooltip="Add Product" th:href="@{/}">
+        <i class="bi bi-plus-circle auth-icon"></i>
+        <span>Add Product</span>
+    </a>
+
+    <a class="auth-item" data-tooltip="Analytics" th:href="@{/}">
+        <i class="bi bi-bar-chart auth-icon"></i>
+        <span>Analytics</span>
     </a>
 
     <a class="auth-item" data-tooltip="Cart" th:href="@{/}">

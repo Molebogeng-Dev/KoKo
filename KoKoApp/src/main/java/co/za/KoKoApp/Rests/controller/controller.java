@@ -8,31 +8,36 @@ public class controller {
 
     @GetMapping({"/","/home"})
     public String index(){
-        return "index";
+        return "home/index";
     }
 
     @GetMapping("/login")
     public String login(){
-        return "login";
+        return "home/login";
     }
 
     @GetMapping("/register")
     public String register(){
-        return "register";
+        return "home/register";
     }
 
     @GetMapping("/user")
     public String userProfile(){
-        return "user";
+        return "profile/user";
     }
 
     @GetMapping("/business")
     public String businessProfile(){
-        return "business";
+        return "profile/business";
     }
 
     @GetMapping("/runner")
     public String runnerProfile(){
-        return "runner";
+        return "profile/runner";
+    }
+
+    @GetMapping("/businesses")
+    public String businessesDirectory(){
+        return "profile/businesses";
     }
 }
