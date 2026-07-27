@@ -6,34 +6,37 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class controller {
 
+    String homeFolder = "home";
+    String profileFolder = "profile";
+
     @GetMapping({"/","/home"})
     public String index(){
-        return "home/index";
+        return homeFolder + "/index";
     }
 
     @GetMapping("/login")
     public String login(){
-        return "home/login";
+        return homeFolder + "/login";
     }
 
     @GetMapping("/register")
     public String register(){
-        return "home/register";
+        return homeFolder + "/register";
     }
 
     @GetMapping("/user")
     public String userProfile(){
-        return "profile/user";
+        return profileFolder + "/user";
     }
 
     @GetMapping("/business")
     public String businessProfile(){
-        return "profile/business";
+        return profileFolder + "/business";
     }
 
     @GetMapping("/runner")
     public String runnerProfile(){
-        return "profile/runner";
+        return profileFolder + "/runner";
     }
 
     @GetMapping("/businesses")

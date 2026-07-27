@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <!--../static/css/style.css-->
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -29,12 +28,12 @@
          (currently: the guest index page). -->
     <div class="header-left" layout:fragment="header-left">
 
-        <a class="auth-item" id="signin-trigger" th:href="@{/login}" data-tooltip="Sign In">
+        <a class="auth-item" id="signin-trigger" href="#" data-tooltip="Sign In">
             <i class="bi bi-box-arrow-in-right auth-icon"></i>
             <span>Sign In</span>
         </a>
 
-        <a class="auth-item" id="signup-trigger" th:href="@{/register}" data-tooltip="Sign Up">
+        <a class="auth-item" id="signup-trigger" href="#" data-tooltip="Sign Up">
             <i class="bi bi-person-plus auth-icon"></i>
             <span>Sign Up</span>
         </a>
@@ -80,7 +79,7 @@
 
         <div class="top-rated-header">
             <h2>TOP RATED</h2>
-            <p> < - - Swipe to explore top businesses near you - - > </p>
+            <p> < - - Swipe to explore top businesses near you or select a region - - > </p>
         </div>
 
         <!-- REGION SELECT — same pill-button treatment as the Categories
@@ -170,9 +169,36 @@
     <p>&copy; 2026 KoKo. All rights reserved.</p>
 </footer>
 
+<!-- ======================================================
+     AUTH MODAL (Sign In / Sign Up)
+     ------------------------------------------------------
+     Open/close, panel switching and step navigation are
+     wired up in js/modal.js (UI-only prototype - no real
+     verification/API calls yet, that's a separate task).
+====================================================== -->
+<div class="auth-overlay" id="auth-overlay">
+    <div class="auth-modal">
+
+        <button class="auth-close" id="auth-close" type="button" aria-label="Close">
+            <i class="bi bi-x-lg"></i>
+        </button>
+
+        <img th:src="@{/images/kokoLogo.png}" alt="KoKo" class="auth-logo">
+
+        <!-- Each panel now lives in its own file under home/fragments/ -
+             th:replace pulls the fragment in and swaps it for this tag
+             entirely, so the fragment's own root <div class="auth-panel">
+             is what actually ends up in the page. -->
+        <div th:replace="~{home/fragments/auth-signin :: signin}"></div>
+        <div th:replace="~{home/fragments/auth-signup :: signup}"></div>
+
+    </div>
+</div>
+
 <script th:src="@{/js/api.js}"></script>
 <script th:src="@{/js/auth.js}"></script>
 <script th:src="@{/js/Ui.js}"></script>
+<script th:src="@{/js/modal.js}"></script>
 
 </body>
 </html>

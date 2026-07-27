@@ -123,6 +123,8 @@ header {
 
 /* ICON BUTTONS */
 .auth-item {
+  position: relative;
+
   display: flex;
   align-items: center;
   gap: 6px;
@@ -143,29 +145,30 @@ header {
 .auth-icon {
   font-size: clamp(16px, 1.6vw, 24px);
 }
+
 .auth-item:hover {
   transform: scale(0.95);
   color: #ffffff;
   background: rgba(255, 255, 255, 0.15);
 }
+
 .auth-item:active {
   transform: scale(0.92);
   background: rgba(255, 255, 255, 0.2);
 }
-/* tooltip */
-.auth-item {
-  position: relative;
-}
+
+/* tooltip anchor - actual tooltip content/visibility only kicks in on
+   mobile via data-tooltip, see the media query below */
 .auth-item::after {
   content: "";
 }
-/* show on hover */
-.auth-item:hover::after{
+
+.auth-item:hover::after {
   opacity: 1;
 }
 
 /* MOBILE BEHAVIOUR */
-@media (max-width: 780px) {
+@media (max-width: 980px) {
 
   .auth-item span {
     display: none;
@@ -231,10 +234,7 @@ header {
   font-size: 13px;
   font-style: italic;
 }
-.top-rated-header h2,
-.top-rated-header p {
-  color: #ffffff;
-}
+
 /*  STORIES SCROLL ROW */
 .stories-container {
   display: flex;
@@ -275,7 +275,7 @@ header {
   font-size: 18px;
 
   scroll-snap-align: start;
-  
+
 
   transition: transform 0.2s ease;
 }
@@ -292,9 +292,9 @@ header {
 /* TITLE (WHITE CARD BACKGROUND) */
 .top-rated-header h2,
 .map-header h2 {
-  
 
-  
+
+
   backdrop-filter: blur(0px);
 
   padding: 1px 1px;
@@ -328,20 +328,6 @@ header {
   }
 }
 
-@keyframes fadeScale {
-  0% {
-    opacity: 0;
-    transform: scale(0.85);
-    filter: blur(10px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: scale(1);
-    filter: blur(0);
-  }
-}
-
 .top-rated-header p,
 .map-header p {
   animation: fadeUp 0.8s ease-out backwards;
@@ -351,17 +337,12 @@ header {
 /* DESCRIPTION (SMALL WHITE CARD) */
 .top-rated-header p,
 .map-header p {
-  
-
-
-  position: center;
-
   background: linear-gradient(400deg, rgba(13, 47, 2, 0.626), #f4a3616f);
   backdrop-filter: blur(3px);
   border-radius: 50px;
 
   padding: 1px 100px;
-  
+
 
   color: rgba(255, 255, 255, 0.85);
   font-size: 13px;
@@ -527,7 +508,7 @@ header {
 
 .bottom-actions {
   position: fixed;
-  bottom: 23px; 
+  bottom: 23px;
   left: 50%;
   transform: translateX(-50%);
 
@@ -554,8 +535,6 @@ header {
 
   border-radius: 2000px;
 
-  background: rgba(255, 255, 255, 0.12);
-  
   background: linear-gradient(200deg, rgba(45,106,79,0.6), rgba(244,162,97,0.4));
 
   color: white;
@@ -597,19 +576,6 @@ header {
   }
 }
 
-/* soft breathing glow */
-@keyframes softGlow {
-  0% {
-    box-shadow: 0 0 0 rgba(255,255,255,0);
-  }
-  50% {
-    box-shadow: 0 8px 25px rgba(255,255,255,0.08);
-  }
-  100% {
-    box-shadow: 0 0 0 rgba(255,255,255,0);
-  }
-}
-
 /* APPLY ANIMATION */
 .bottom-btn {
   animation: floatInUp 0.6s ease-in both;
@@ -617,35 +583,11 @@ header {
 }
 
 /* stagger each button like ChatGPT UI */
-.bottom-btn.left {
-  animation-delay: 0.2s;
-}
-
-.bottom-btn.center {
-  animation-delay: 0.2s;
-}
-
+.bottom-btn.left,
+.bottom-btn.center,
 .bottom-btn.right {
   animation-delay: 0.2s;
 }
-
-
-
-@keyframes pulse {
-  0% {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  50% {
-    opacity: 0.2;
-    transform: scale(1.05);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.1);
-  }
-}
-
 
 
 
@@ -853,6 +795,8 @@ footer p {
 
 .auth-switch-link {
   color: #f4c895;
+  border: 1px;
+  background: none;
   font-family: 'Inter', system-ui, sans-serif;
   font-size: 13px;
   font-weight: 600;
@@ -879,6 +823,308 @@ footer p {
   color: #ffb3ba;
   font-family: 'Inter', system-ui, sans-serif;
   font-size: 13px;
+}
+
+/* ================================ */
+/* AUTH MODAL (Sign In / Sign Up)   */
+/* ================================ */
+
+.auth-overlay {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(10, 20, 10, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  z-index: 3000;
+  padding: 20px;
+
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+/* shown state - toggled via JS by adding this class to #auth-overlay */
+.auth-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.auth-modal {
+  position: relative;
+
+  width: 100%;
+  max-width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
+
+  padding: 36px 28px 28px;
+
+  background: linear-gradient(160deg, rgba(45,106,79,0.55), rgba(20,20,20,0.65), rgba(244,162,97,0.35));
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 28px;
+
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+
+  transform: translateY(20px) scale(0.97);
+  filter: blur(4px);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease, filter 0.3s ease;
+}
+
+.auth-overlay.active .auth-modal {
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+  opacity: 1;
+}
+
+.auth-modal::-webkit-scrollbar {
+  display: none;
+}
+.auth-modal {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.auth-modal .auth-logo {
+  width: 140px;
+  margin-bottom: 18px;
+}
+
+.auth-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(255,255,255,0.12);
+  border: none;
+  border-radius: 50%;
+
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.auth-close:hover {
+  transform: scale(1.08);
+  background: rgba(255,255,255,0.22);
+}
+
+/* PANELS — only one of #panel-login / #panel-register visible at a time */
+.auth-panel {
+  display: none;
+}
+
+.auth-panel.active {
+  display: block;
+}
+
+/* Within the modal (unlike the standalone auth pages), a panel can hold
+   more than one .auth-form (e.g. Sign In's credentials step + OTP step) -
+   only show the one marked .active. Scoped to .auth-overlay so the
+   standalone login.html/register.html pages (single form, always visible)
+   are unaffected. */
+.auth-overlay .auth-form {
+  display: none;
+}
+
+.auth-overlay .auth-form.active {
+  display: flex;
+}
+
+.auth-hint {
+  margin: 10px 0 0;
+
+  color: rgba(255,255,255,0.6);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.otp-input {
+  text-align: center;
+  letter-spacing: 8px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* STEP INDICATOR (register wizard) */
+.step-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  margin-bottom: 22px;
+}
+
+.step-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+
+  background: rgba(255,255,255,0.25);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.step-dot.active {
+  background: linear-gradient(200deg, #2d6a4f, #f4a361);
+  transform: scale(1.3);
+}
+
+/* WIZARD STEPS — only .auth-step.active is shown */
+.auth-step {
+  display: none;
+  flex-direction: column;
+}
+
+.auth-step.active {
+  display: flex;
+  animation: fadeUp 0.3s ease-out;
+}
+
+/* NEXT / BACK ROW */
+.step-nav {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.step-nav .auth-submit {
+  margin-top: 0;
+}
+
+.step-btn {
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  padding: 12px 0;
+
+  border-radius: 50px;
+  border: 1px solid rgba(255,255,255,0.25);
+
+  background: rgba(255,255,255,0.08);
+  color: white;
+
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.step-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.16);
+}
+
+.step-btn:active {
+  transform: scale(0.98);
+}
+
+.step-btn-next {
+  background: linear-gradient(200deg, #2d6a4f, #f4a361);
+  border: none;
+}
+
+/* PHOTO CAPTURE (register step 3) */
+.photo-capture {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
+  margin-top: 16px;
+}
+
+.photo-preview {
+  position: relative;
+
+  width: 180px;
+  height: 180px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  overflow: hidden;
+
+  background: rgba(255,255,255,0.08);
+  border: 2px dashed rgba(255,255,255,0.3);
+}
+
+.photo-placeholder-icon {
+  font-size: 72px;
+  color: rgba(255,255,255,0.35);
+}
+
+.photo-preview video,
+.photo-preview img {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  display: none;
+}
+
+.photo-actions {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.step-btn-photo {
+  flex: 1;
+}
+
+/* CONFIRMATION PANEL (post-submit, register) */
+.auth-confirmation {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  animation: fadeUp 0.35s ease-out;
+}
+
+.auth-confirmation.active {
+  display: flex;
+}
+
+.auth-confirmation-icon {
+  font-size: 48px;
+  color: #f4c895;
+  margin-bottom: 14px;
+}
+
+.auth-confirmation .auth-submit {
+  margin-top: 24px;
 }
 
 /* MOBILE */

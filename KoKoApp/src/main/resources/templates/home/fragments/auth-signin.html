@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- Included into layout.html via:
+     th:replace="~{home/fragments/auth-signin :: signin}"
+     th:replace swaps the placeholder tag for this whole <div>, so the
+     class/id below are exactly what ends up in the final page. -->
+<div class="auth-panel active" id="panel-login" th:fragment="signin">
+
+    <h1 class="auth-title">Sign In</h1>
+
+    <!-- STEP 1 — credentials -->
+    <form class="auth-form active" id="signin-credentials-form" autocomplete="off">
+
+        <div id="login-error" class="auth-error"></div>
+
+        <label class="auth-label" for="login-email">Email</label>
+        <input type="email" id="login-email" class="auth-input" placeholder="you@example.com" required>
+
+        <label class="auth-label" for="login-password">Password</label>
+        <input type="password" id="login-password" class="auth-input" placeholder="••••••••" required>
+
+        <a href="#" class="auth-forgot">Forgot password?</a>
+
+        <p class="auth-hint">We'll send a one-time code to your email and WhatsApp to confirm it's you.</p>
+
+        <button type="submit" class="auth-submit">
+            <i class="bi bi-shield-check"></i>
+            Send Verification Code
+        </button>
+
+        <p class="auth-switch">
+            New to KoKo?
+            <button type="button" class="auth-switch-link" data-panel="register">Create an account</button>
+        </p>
+
+    </form>
+
+    <!-- STEP 2 — one-time PIN, hidden until step 1 succeeds -->
+    <form class="auth-form" id="signin-otp-form" autocomplete="off">
+
+        <div id="login-otp-error" class="auth-error"></div>
+
+        <p class="auth-hint">Enter the 6-digit code we sent to your email and WhatsApp.</p>
+
+        <label class="auth-label" for="login-otp">Verification Code</label>
+        <input type="text" id="login-otp" class="auth-input otp-input" placeholder="••••••" inputmode="numeric" maxlength="6" required>
+
+        <button type="submit" class="auth-submit">
+            <i class="bi bi-box-arrow-in-right"></i>
+            Verify &amp; Sign In
+        </button>
+
+        <p class="auth-switch">
+            Didn't get a code?
+            <button type="button" class="auth-switch-link" id="resend-otp-link">Resend</button>
+        </p>
+
+    </form>
+
+</div>
+
+</body>
+</html>

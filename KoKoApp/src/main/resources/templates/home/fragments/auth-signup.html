@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- Included into layout.html via:
+     th:replace="~{home/fragments/auth-signup :: signup}" -->
+<div class="auth-panel" id="panel-register" th:fragment="signup">
+
+    <h1 class="auth-title">Create Account</h1>
+
+    <!-- STEP INDICATOR -->
+    <div class="step-indicator" id="register-step-indicator">
+        <span class="step-dot active" data-step-dot="1"></span>
+        <span class="step-dot" data-step-dot="2"></span>
+        <span class="step-dot" data-step-dot="3"></span>
+    </div>
+
+    <form id="signup-form" autocomplete="off">
+
+        <!-- STEP 1 — account details -->
+        <div class="auth-step active" data-step="1">
+
+            <div id="reg-error" class="auth-error"></div>
+
+            <label class="auth-label" for="reg-name">Name</label>
+            <input type="text" id="reg-name" class="auth-input" placeholder="Nolo" required>
+
+            <label class="auth-label" for="reg-surname">Surname</label>
+            <input type="text" id="reg-surname" class="auth-input" placeholder="Selahle" required>
+
+            <label class="auth-label" for="reg-phone">Phone Number</label>
+            <input type="tel" id="reg-phone" class="auth-input" placeholder="082 123 4567" required>
+
+            <label class="auth-label" for="reg-email">Email</label>
+            <input type="email" id="reg-email" class="auth-input" placeholder="you@example.com" required>
+
+            <label class="auth-label" for="reg-password">Password</label>
+            <input type="password" id="reg-password" class="auth-input" placeholder="••••••••" required>
+
+            <label class="auth-label" for="reg-confirm-password">Confirm Password</label>
+            <input type="password" id="reg-confirm-password" class="auth-input" placeholder="••••••••" required>
+
+            <div class="step-nav">
+                <button type="button" class="step-btn step-btn-next" data-next="2">
+                    Next
+                    <i class="bi bi-arrow-right"></i>
+                </button>
+            </div>
+
+            <p class="auth-switch">
+                Already have an account?
+                <button type="button" class="auth-switch-link" data-panel="login">Sign In</button>
+            </p>
+
+        </div>
+
+        <!-- STEP 2 — address -->
+        <div class="auth-step" data-step="2">
+
+            <div id="reg-error-2" class="auth-error"></div>
+
+            <label class="auth-label" for="reg-address">Physical Address</label>
+            <input type="text" id="reg-address" class="auth-input" placeholder="12 Vilakazi Street" required>
+
+            <label class="auth-label" for="reg-suburb">Suburb / Town</label>
+            <input type="text" id="reg-suburb" class="auth-input" placeholder="Etwatwa" required>
+
+            <label class="auth-label" for="reg-province">Province</label>
+            <select id="reg-province" class="auth-input" required>
+                <option value="" disabled selected>Select province</option>
+                <option value="Eastern Cape">Eastern Cape</option>
+                <option value="Free State">Free State</option>
+                <option value="Gauteng">Gauteng</option>
+                <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+                <option value="Limpopo">Limpopo</option>
+                <option value="Mpumalanga">Mpumalanga</option>
+                <option value="Northern Cape">Northern Cape</option>
+                <option value="North West">North West</option>
+                <option value="Western Cape">Western Cape</option>
+            </select>
+
+            <label class="auth-label" for="reg-postal-code">Postal Code</label>
+            <input type="text" id="reg-postal-code" class="auth-input" placeholder="1804" inputmode="numeric" maxlength="4" required>
+
+            <div class="step-nav">
+                <button type="button" class="step-btn step-btn-back" data-back="1">
+                    <i class="bi bi-arrow-left"></i>
+                    Back
+                </button>
+                <button type="button" class="step-btn step-btn-next" data-next="3">
+                    Next
+                    <i class="bi bi-arrow-right"></i>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- STEP 3 — face photo -->
+        <div class="auth-step" data-step="3">
+
+            <div id="reg-error-3" class="auth-error"></div>
+
+            <p class="auth-hint">Take a clear photo of your face - this is how we'll verify it's you at delivery.</p>
+
+            <div class="photo-capture">
+                <div class="photo-preview" id="photo-preview">
+                    <i class="bi bi-person-circle photo-placeholder-icon" id="photo-placeholder-icon"></i>
+                    <video id="camera-stream" playsinline autoplay></video>
+                    <img id="captured-photo" alt="Captured photo">
+                </div>
+
+                <canvas id="photo-canvas" hidden></canvas>
+
+                <div class="photo-actions">
+                    <button type="button" class="step-btn step-btn-photo" id="capture-btn">
+                        <i class="bi bi-camera"></i>
+                        Take Photo
+                    </button>
+                    <button type="button" class="step-btn step-btn-photo" id="retake-btn" hidden>
+                        <i class="bi bi-arrow-counterclockwise"></i>
+                        Retake
+                    </button>
+                </div>
+
+                <input type="hidden" id="reg-photo-data" name="photo">
+            </div>
+
+            <div class="step-nav">
+                <button type="button" class="step-btn step-btn-back" data-back="2">
+                    <i class="bi bi-arrow-left"></i>
+                    Back
+                </button>
+                <button type="submit" class="auth-submit">
+                    <i class="bi bi-person-plus"></i>
+                    Create Account
+                </button>
+            </div>
+
+        </div>
+
+    </form>
+
+    <!-- POST-SUBMIT CONFIRMATION — hidden until signup-form succeeds -->
+    <div class="auth-confirmation" id="register-confirmation">
+        <i class="bi bi-envelope-check auth-confirmation-icon"></i>
+        <h2 class="auth-title">Check your inbox</h2>
+        <p class="auth-hint">
+            We've sent a verification link to your email and a WhatsApp message -
+            confirm either one to activate your account.
+        </p>
+        <button type="button" class="auth-submit" id="confirmation-close-btn">
+            Got it
+        </button>
+    </div>
+
+</div>
+
+</body>
+</html>

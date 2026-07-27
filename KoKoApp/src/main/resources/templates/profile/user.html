@@ -15,39 +15,39 @@
 
     <a class="auth-item" data-tooltip="More" th:href="@{/}">
         <i class="bi bi-three-dots auth-icon"></i>
-        <span>More</span>
+        <span>Menu</span>
     </a>
+    <!-- WE WILL ADD THESE IN THE MENU
+        <a class="auth-item" data-tooltip="My Orders" th:href="@{/}">
+            <i class="bi bi-bag-check auth-icon"></i>
+            <span>My Orders</span>
+        </a>
 
-    <a class="auth-item" data-tooltip="My Orders" th:href="@{/}">
-        <i class="bi bi-bag-check auth-icon"></i>
-        <span>My Orders</span>
-    </a>
+        <a class="auth-item" data-tooltip="Favorites" th:href="@{/}">
+            <i class="bi bi-heart auth-icon"></i>
+            <span>Favorites</span>
+        </a>
+    -->
+    </div>
 
-    <a class="auth-item" data-tooltip="Favorites" th:href="@{/}">
-        <i class="bi bi-heart auth-icon"></i>
-        <span>Favorites</span>
-    </a>
+    <div class="header-right" layout:fragment="header-right">
 
-</div>
+        <a class="auth-item" data-tooltip="Notifications" th:href="@{/}">
+            <i class="bi bi-bell auth-icon"></i>
+            <span>Notifications</span>
+        </a>
 
-<div class="header-right" layout:fragment="header-right">
+        <a class="auth-item" data-tooltip="Cart" th:href="@{/}">
+            <i class="bi bi-cart3 auth-icon"></i>
+            <span>Cart</span>
+        </a>
 
-    <a class="auth-item" data-tooltip="Notifications" th:href="@{/}">
-        <i class="bi bi-bell auth-icon"></i>
-        <span>Notifications</span>
-    </a>
+        <a class="auth-item" data-tooltip="Logout" th:href="@{/}">
+            <i class="bi bi-box-arrow-right auth-icon"></i>
+            <span>Logout</span>
+        </a>
 
-    <a class="auth-item" data-tooltip="Cart" th:href="@{/}">
-        <i class="bi bi-cart3 auth-icon"></i>
-        <span>Cart</span>
-    </a>
+    </div>
 
-    <a class="auth-item" data-tooltip="Logout" th:href="@{/}">
-        <i class="bi bi-box-arrow-right auth-icon"></i>
-        <span>Logout</span>
-    </a>
-
-</div>
-
-</body>
-</html>
+    </body>
+    </html>
