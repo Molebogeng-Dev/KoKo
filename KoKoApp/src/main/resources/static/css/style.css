@@ -167,6 +167,18 @@ header {
   opacity: 1;
 }
 
+/* TOP UP (header-left, business/user/runner profiles) - a monetary
+   action, so it gets a warm accent instead of blending in as a plain
+   nav icon like the rest of .auth-item. */
+.auth-item-topup {
+  color: white;
+}
+
+.auth-item-topup:hover {
+  color: #ffffff;
+  background: linear-gradient(200deg, rgba(45,106,79,0.35), rgba(244,162,97,0.35));
+}
+
 /* MOBILE BEHAVIOUR */
 @media (max-width: 980px) {
 
