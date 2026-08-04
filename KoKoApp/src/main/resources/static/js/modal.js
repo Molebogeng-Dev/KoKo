@@ -1,16 +1,20 @@
-// === KOKO AUTH MODAL (prototype) ===
-// This file only handles the modal's UI mechanics: opening/closing it,
+// === KOKO AUTH MODAL ===
+// This file handles the modal's UI mechanics: opening/closing it,
 // switching between the Sign In / Sign Up panels, and stepping through
 // the Sign In OTP step + the Sign Up 3-step wizard.
 //
-// It deliberately does NOT call any API, send a real OTP, validate
-// credentials, or handle the photo capture camera - all of that is
-// separate future work (auth.js + a dedicated camera-capture file).
-// Where a "real" action would normally happen (sending an OTP, creating
-// the account), this just advances the UI to the next step/panel so the
-// prototype can be clicked through end-to-end.
+// It does NOT do the actual validation or network calls itself - that's
+// auth.js's job. Two integration points connect the two files:
+//   - window.validateRegisterStep(step) - auth.js defines this; the Next
+//     button here calls it before advancing and stays put if it fails.
+//   - window.showRegisterStep / window.showRegisterConfirmation - this
+//     file defines these; auth.js calls them after a server response
+//     (jump back to step 1 on error, show the confirmation panel on success).
 //
-// Guarded against double-loading, same pattern as api.js/auth.js/Ui.js.
+// Sign In's two steps are still prototype-only (no real OTP send/verify
+// yet) since that backend doesn't exist yet - see the TODO markers below.
+//
+// Guarded against double-loading, same pattern as auth.js.
 if (typeof window.__KOKO_MODAL_LOADED__ === "undefined") {
   window.__KOKO_MODAL_LOADED__ = true;
 
@@ -78,6 +82,18 @@ if (typeof window.__KOKO_MODAL_LOADED__ === "undefined") {
     registerStepIndicator.style.display = "";
     registerConfirmation.classList.remove("active");
   }
+  window.showRegisterStep = showRegisterStep;
+
+  // Swaps the wizard for the "check your inbox" panel. Called by auth.js
+  // once the real POST /api/auth/register succeeds - this used to be
+  // inline prototype code that ran on every submit with no real request
+  // behind it; now it only runs after an actual successful save.
+  function showRegisterConfirmation() {
+    signupForm.style.display = "none";
+    registerStepIndicator.style.display = "none";
+    registerConfirmation.classList.add("active");
+  }
+  window.showRegisterConfirmation = showRegisterConfirmation;
 
   document.addEventListener("DOMContentLoaded", function () {
 
@@ -118,10 +134,21 @@ if (typeof window.__KOKO_MODAL_LOADED__ === "undefined") {
       });
     });
 
-    // Register wizard: Next / Back buttons
+    // Register wizard: Next / Back buttons. Next is gated through
+    // auth.js's window.validateRegisterStep, if it's loaded - falls back
+    // to allowing navigation so the modal never gets stuck if that
+    // function is missing for some reason.
     document.querySelectorAll("[data-next]").forEach(function (btn) {
       btn.addEventListener("click", function () {
-        showRegisterStep(Number(btn.dataset.next));
+        const targetStep = Number(btn.dataset.next);
+        const currentStep = targetStep - 1;
+
+        if (typeof window.validateRegisterStep === "function"
+            && !window.validateRegisterStep(currentStep)) {
+          return;
+        }
+
+        showRegisterStep(targetStep);
       });
     });
 
@@ -149,18 +176,11 @@ if (typeof window.__KOKO_MODAL_LOADED__ === "undefined") {
       });
     }
 
-    // PROTOTYPE ONLY - Sign Up final step swaps the form for the
-    // confirmation panel. Real behaviour (upload photo, create the
-    // account, actually send the email/WhatsApp verification) belongs
-    // in auth.js later.
-    if (signupForm) {
-      signupForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-        signupForm.style.display = "none";
-        registerStepIndicator.style.display = "none";
-        registerConfirmation.classList.add("active");
-      });
-    }
+    // Sign Up final step's real submit handling (validate, POST, show
+    // confirmation on success) now lives in auth.js - it calls
+    // window.showRegisterConfirmation() above on a successful save.
+    // Sign In's two steps are still prototype-only below since the
+    // login/OTP backend isn't built yet.
 
     const confirmationCloseBtn = document.getElementById("confirmation-close-btn");
     if (confirmationCloseBtn) {

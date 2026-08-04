@@ -28,12 +28,12 @@
          (currently: the guest index page). -->
     <div class="header-left" layout:fragment="header-left">
 
-        <a class="auth-item" id="signin-trigger" href="#" data-tooltip="Sign In">
+        <a class="auth-item" id="signin-trigger" data-tooltip="Sign In">
             <i class="bi bi-box-arrow-in-right auth-icon"></i>
             <span>Sign In</span>
         </a>
 
-        <a class="auth-item" id="signup-trigger" href="#" data-tooltip="Sign Up">
+        <a class="auth-item" id="signup-trigger" data-tooltip="Sign Up">
             <i class="bi bi-person-plus auth-icon"></i>
             <span>Sign Up</span>
         </a>
@@ -145,12 +145,12 @@
          plain (non-fragment) block since no profile needs it to differ
          yet - turn it into a layout:fragment the same way as the header
          blocks above if that changes. -->
-    <!--
+
     <div class="bottom-actions">
 
         <button class="bottom-btn right" data-tooltip="AI Waiter">
             <i class="bi bi-cpu"></i>
-            <span> AI Waiter</span>
+            <span> wAlter </span>
         </button>
 
         <button class="bottom-btn center" data-tooltip="Explore">
@@ -164,7 +164,7 @@
         </button>
 
     </div>
-    -->
+
 
     <p>&copy; 2026 KoKo. All rights reserved.</p>
 </footer>
@@ -195,9 +195,7 @@
     </div>
 </div>
 
-<script th:src="@{/js/api.js}"></script>
 <script th:src="@{/js/auth.js}"></script>
-<script th:src="@{/js/Ui.js}"></script>
 <script th:src="@{/js/modal.js}"></script>
 
 </body>

@@ -9,21 +9,14 @@ public class controller {
     String homeFolder = "home";
     String profileFolder = "profile";
 
+    //index page endpoint
     @GetMapping({"/","/home"})
     public String index(){
         return homeFolder + "/index";
     }
 
-    @GetMapping("/login")
-    public String login(){
-        return homeFolder + "/login";
-    }
 
-    @GetMapping("/register")
-    public String register(){
-        return homeFolder + "/register";
-    }
-
+    //profiles endpoints
     @GetMapping("/user")
     public String userProfile(){
         return profileFolder + "/user";
@@ -39,8 +32,4 @@ public class controller {
         return profileFolder + "/runner";
     }
 
-    @GetMapping("/businesses")
-    public String businessesDirectory(){
-        return "profile/businesses";
-    }
 }

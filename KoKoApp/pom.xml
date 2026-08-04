@@ -29,6 +29,23 @@
 	<properties>
 		<java.version>21</java.version>
 	</properties>
+
+	<!-- AWS SDK BOM - pins consistent versions across AWS SDK modules so
+	     the s3 dependency below doesn't need its own <version>. R2 speaks
+	     the S3 API, so this same SDK talks to Cloudflare R2 unmodified,
+	     just pointed at R2's endpoint instead of AWS's (see R2Config). -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>software.amazon.awssdk</groupId>
+				<artifactId>bom</artifactId>
+				<version>2.49.6</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -61,6 +78,25 @@
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Spring Security — pulled in purely for BCryptPasswordEncoder
+		     to hash passwords. IMPORTANT: adding this locks every endpoint
+		     behind a default login wall unless explicitly opened back up -
+		     see SecurityConfig, which permits all requests for now since
+		     we're building our own JWT-based auth later, not using Spring
+		     Security's session login. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<!-- AWS SDK S3 module — used to talk to Cloudflare R2, not AWS.
+		     R2 exposes an S3-compatible API, so this standard client
+		     works unmodified once pointed at R2's endpoint (see R2Config). -->
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>s3</artifactId>
 		</dependency>
 
 		<!-- Enables Django/Jinja-style template inheritance for Thymeleaf:

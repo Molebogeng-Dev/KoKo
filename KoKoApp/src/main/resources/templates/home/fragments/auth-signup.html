@@ -29,16 +29,40 @@
             <input type="text" id="reg-surname" class="auth-input" placeholder="Selahle" required>
 
             <label class="auth-label" for="reg-phone">Phone Number</label>
-            <input type="tel" id="reg-phone" class="auth-input" placeholder="082 123 4567" required>
+            <!-- Only South Africa for now - built as a real <select> (not
+                 a static label) specifically so adding more countries
+                 later is just adding <option> tags, no markup rework. -->
+            <div class="phone-input-group">
+                <div class="phone-code-select">
+                    <select id="reg-phone-code" class="auth-input phone-code-input" required>
+                        <option value="+27" selected>🇿🇦 +27</option>
+                    </select>
+                    <i class="bi bi-chevron-down phone-code-chevron"></i>
+                </div>
+                <input type="tel" id="reg-phone" class="auth-input phone-number-input" placeholder="82 123 4567" required>
+            </div>
+            <p class="field-hint" id="reg-phone-hint"></p>
 
             <label class="auth-label" for="reg-email">Email</label>
             <input type="email" id="reg-email" class="auth-input" placeholder="you@example.com" required>
+            <p class="field-hint" id="reg-email-hint"></p>
 
             <label class="auth-label" for="reg-password">Password</label>
             <input type="password" id="reg-password" class="auth-input" placeholder="••••••••" required>
+            <!-- Live strength meter - filled in by auth.js as the user types -->
+            <div class="password-strength" id="password-strength">
+                <div class="strength-bars">
+                    <span class="strength-bar" data-bar="1"></span>
+                    <span class="strength-bar" data-bar="2"></span>
+                    <span class="strength-bar" data-bar="3"></span>
+                    <span class="strength-bar" data-bar="4"></span>
+                </div>
+                <p class="strength-label" id="password-strength-label"></p>
+            </div>
 
             <label class="auth-label" for="reg-confirm-password">Confirm Password</label>
             <input type="password" id="reg-confirm-password" class="auth-input" placeholder="••••••••" required>
+            <p class="field-hint" id="reg-confirm-password-hint"></p>
 
             <div class="step-nav">
                 <button type="button" class="step-btn step-btn-next" data-next="2">
@@ -81,6 +105,7 @@
 
             <label class="auth-label" for="reg-postal-code">Postal Code</label>
             <input type="text" id="reg-postal-code" class="auth-input" placeholder="1804" inputmode="numeric" maxlength="4" required>
+            <p class="field-hint" id="reg-postal-code-hint"></p>
 
             <div class="step-nav">
                 <button type="button" class="step-btn step-btn-back" data-back="1">
@@ -103,16 +128,35 @@
             <p class="auth-hint">Take a clear photo of your face - this is how we'll verify it's you at delivery.</p>
 
             <div class="photo-capture">
-                <div class="photo-preview" id="photo-preview">
+
+                <!-- Shown first, every time this step is (re)entered - the
+                     actual camera (getUserMedia) only starts once the user
+                     explicitly clicks through this, rather than the browser's
+                     native permission dialog appearing with no context. -->
+                <div class="camera-permission-prompt" id="camera-permission-prompt">
+                    <i class="bi bi-camera-video camera-permission-icon"></i>
+                    <p class="auth-hint">We need access to your camera to take a verification photo. This is used only to confirm it's you at delivery.</p>
+                    <button type="button" class="step-btn step-btn-photo" id="allow-camera-btn">
+                        <i class="bi bi-camera-video"></i>
+                        Allow Camera Access
+                    </button>
+                </div>
+
+                <div class="photo-preview" id="photo-preview" hidden>
                     <i class="bi bi-person-circle photo-placeholder-icon" id="photo-placeholder-icon"></i>
                     <video id="camera-stream" playsinline autoplay></video>
                     <img id="captured-photo" alt="Captured photo">
                 </div>
 
+                <!-- Live feedback from face-detection.js via photo-capture.js -
+                     lets the capture button stay disabled until a face is
+                     actually in frame, rather than accepting any image. -->
+                <p class="face-status" id="face-status" hidden>Position your face in the frame</p>
+
                 <canvas id="photo-canvas" hidden></canvas>
 
-                <div class="photo-actions">
-                    <button type="button" class="step-btn step-btn-photo" id="capture-btn">
+                <div class="photo-actions" id="photo-actions" hidden>
+                    <button type="button" class="step-btn step-btn-photo" id="capture-btn" disabled>
                         <i class="bi bi-camera"></i>
                         Take Photo
                     </button>

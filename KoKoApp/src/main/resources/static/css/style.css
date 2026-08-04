@@ -743,6 +743,107 @@ footer p {
   background: rgba(255,255,255,0.14);
 }
 
+/* PHONE NUMBER — country code dropdown + local number, side by side.
+   Only South Africa (+27) is in the dropdown for now; more countries
+   can be added later as extra <option> tags, no markup changes needed. */
+.phone-input-group {
+  display: flex;
+  gap: 8px;
+}
+
+.phone-code-select {
+  position: relative;
+  flex: 0 0 84px;
+}
+
+.phone-code-input {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  width: 100%;
+  padding-right: 28px;
+
+  cursor: pointer;
+}
+
+.phone-code-chevron {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+
+  color: rgba(255,255,255,0.6);
+  font-size: 11px;
+  pointer-events: none;
+}
+
+.phone-input-group .phone-number-input {
+  flex: 1;
+}
+
+/* FIELD HINTS — lightweight inline feedback under an input (as opposed
+   to .auth-error, which is a heavier box used for step-level/server
+   errors). Empty and invisible until auth.js sets text + a state class. */
+.field-hint {
+  min-height: 16px;
+  margin: 4px 0 0;
+
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+}
+
+.field-hint-error {
+  color: #ffb3ba;
+}
+
+.field-hint-valid {
+  color: #a8e6b0;
+}
+
+/* PASSWORD STRENGTH METER */
+.password-strength {
+  margin-top: 8px;
+}
+
+.strength-bars {
+  display: flex;
+  gap: 4px;
+}
+
+.strength-bar {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+
+  background: rgba(255,255,255,0.15);
+  transition: background 0.2s ease;
+}
+
+.strength-bar.filled-weak {
+  background: #e6555a;
+}
+
+.strength-bar.filled-fair {
+  background: #f4a361;
+}
+
+.strength-bar.filled-good {
+  background: #f0d264;
+}
+
+.strength-bar.filled-strong {
+  background: #a8e6b0;
+}
+
+.strength-label {
+  margin: 4px 0 0;
+
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+}
+
 /* FORGOT PASSWORD */
 .auth-forgot {
   align-self: flex-end;
@@ -1071,6 +1172,32 @@ footer p {
   margin-top: 16px;
 }
 
+/* CAMERA PERMISSION PROMPT - shown before getUserMedia is ever called */
+.camera-permission-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+
+  padding: 20px 16px;
+
+  background: rgba(255,255,255,0.06);
+  border: 1px dashed rgba(255,255,255,0.25);
+  border-radius: 20px;
+
+  width: 100%;
+}
+
+.camera-permission-icon {
+  font-size: 40px;
+  color: rgba(255,255,255,0.5);
+}
+
+.camera-permission-prompt .auth-hint {
+  margin: 0;
+}
+
 .photo-preview {
   position: relative;
 
@@ -1113,6 +1240,35 @@ footer p {
 
 .step-btn-photo {
   flex: 1;
+}
+
+.step-btn-photo:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.step-btn-photo:disabled:hover {
+  transform: none;
+  background: rgba(255,255,255,0.08);
+}
+
+/* FACE STATUS — live feedback from face-detection.js while the camera
+   is running, gating whether Take Photo is actually clickable. */
+.face-status {
+  margin: 10px 0 0;
+  text-align: center;
+
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+}
+
+.face-status.face-status-ok {
+  color: #a8e6b0;
+}
+
+.face-status.face-status-pending {
+  color: #f4c895;
 }
 
 /* CONFIRMATION PANEL (post-submit, register) */
