@@ -45,7 +45,5 @@ KoKoApp/
 - Update BASE_URL in js/api.js if your port differs
 
 ## Payment (South Africa)
-- PayFast: https://www.payfast.co.za
-- Ozow: https://ozow.com
-- Cash on Delivery supported
+...
 
