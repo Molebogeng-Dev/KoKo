@@ -40,7 +40,7 @@ KoKoApp/
 4. Frontend runs at http://localhost:63342
 
 ## Backend
-- Spring Boot must run on http://localhost:8080
+- Spring Boot must run on http://localhost:1620
 - Add CorsConfig.java to your Spring Boot project
 - Update BASE_URL in js/api.js if your port differs
 
